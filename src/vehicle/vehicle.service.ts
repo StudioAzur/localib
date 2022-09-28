@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Vehicle } from './entities/vehicle.entity';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class VehicleService {
-  create(createVehicleDto: CreateVehicleDto) {
-    return 'This action adds a new vehicle';
+  constructor(@Inject('CUSTOMER_MODEL')
+    private vehicleModel: Model<Vehicle>,
+  ){}
+  create(createVehicleDto: CreateVehicleDto) : Promise<Vehicle> {
+    const createdVehicle = new this.vehicleModel(createVehicleDto);
+    return createdVehicle.save();
   }
 
-  findAll() {
-    return `This action returns all vehicle`;
+  findAll(): Promise<Vehicle[]> {
+    return this.vehicleModel.find().exec();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} vehicle`;
+    return this.vehicleModel.findById(id).exec();
   }
 
   update(id: number, updateVehicleDto: UpdateVehicleDto) {
-    return `This action updates a #${id} vehicle`;
+    return this.vehicleModel.findByIdAndUpdate(id, updateVehicleDto).exec();
   }
 
   remove(id: number) {
-    return `This action removes a #${id} vehicle`;
+    return this.vehicleModel.findByIdAndRemove(id);
   }
 }
