@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { LocationService } from './location.service';
 import { CreateLocationDto } from './dto/create-location.dto';
@@ -8,8 +9,8 @@ export class LocationController {
   constructor(private readonly locationService: LocationService) {}
 
   @Post()
-  create(@Body() createLocationDto: CreateLocationDto) {
-    return this.locationService.create(createLocationDto);
+  create(@Body() createLocationDto: CreateLocationDto, idCustomer, idVehicle) {
+    return this.locationService.create(createLocationDto, idCustomer, idVehicle);
   }
 
   @Get()
