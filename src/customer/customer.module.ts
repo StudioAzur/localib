@@ -1,5 +1,5 @@
-import { customerProvider } from './../providers/customer.providers';
 /* eslint-disable prettier/prettier */
+import { customerProvider } from './../providers/customer.providers';
 import { Module } from '@nestjs/common';
 import { CustomerService } from './customer.service';
 import { CustomerController } from './customer.controller';
@@ -12,6 +12,6 @@ import { DatabaseModule } from 'src/database/database.module';
     MongooseModule.forFeature([{ name: Customer.name, schema: CustomerSchema }]),
     DatabaseModule],
   controllers: [CustomerController],
-  providers: [CustomerService, ...customerProvider]
+  providers: [CustomerService, ...customerProvider],
 })
 export class CustomerModule {}

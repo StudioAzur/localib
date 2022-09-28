@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class VehicleService {
-  constructor(@Inject('CUSTOMER_MODEL')
+  constructor(@Inject('VEHICLE_MODEL')
     private vehicleModel: Model<Vehicle>,
   ){}
   create(createVehicleDto: CreateVehicleDto) : Promise<Vehicle> {
