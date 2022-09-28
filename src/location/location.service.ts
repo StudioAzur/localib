@@ -1,26 +1,32 @@
-import { Injectable } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Inject, Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
 
 @Injectable()
 export class LocationService {
-  create(createLocationDto: CreateLocationDto) {
-    return 'This action adds a new location';
+  constructor(@Inject('LOCATION_MODEL')
+    private locationModel: Model<Location>,
+  ){}
+  create(createLocationDto: CreateLocationDto): Promise<Location> {
+    const createdLocation = new this.locationModel(createLocationDto);
+      return createdLocation.save();
   }
 
   findAll() {
-    return `This action returns all location`;
+    return this.locationModel.find().exec();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} location`;
+    return this.locationModel.findById(id).exec();
   }
 
   update(id: number, updateLocationDto: UpdateLocationDto) {
-    return `This action updates a #${id} location`;
+    return this.locationModel.findByIdAndUpdate(id, updateLocationDto).exec();
   }
 
   remove(id: number) {
-    return `This action removes a #${id} location`;
+    return this.locationModel.findByIdAndRemove(id);
   }
 }

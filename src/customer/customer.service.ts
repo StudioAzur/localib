@@ -22,12 +22,7 @@ export class CustomerService {
   }
 
   findOne(id: number) {
-    try {
       return this.customerModel.findById(id).exec();
-    } catch (error) {
-      
-    }
-    
   }
 
   update(id: number, updateCustomerDto: UpdateCustomerDto) {
