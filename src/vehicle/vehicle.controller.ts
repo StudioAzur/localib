@@ -1,34 +1,56 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+/* eslint-disable prettier/prettier */
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { VehicleService } from './vehicle.service';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 
-@Controller('vehicle')
+@Controller('vehicles')
 export class VehicleController {
   constructor(private readonly vehicleService: VehicleService) {}
 
   @Post()
   create(@Body() createVehicleDto: CreateVehicleDto) {
-    return this.vehicleService.create(createVehicleDto);
+    try {
+      return this.vehicleService.create(createVehicleDto);
+    } catch (error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
   }
 
   @Get()
   findAll() {
-    return this.vehicleService.findAll();
+    try {
+      return this.vehicleService.findAll();
+    } catch (error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.vehicleService.findOne(+id);
+    try {
+      return this.vehicleService.findOne(+id);
+    } catch (error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateVehicleDto: UpdateVehicleDto) {
-    return this.vehicleService.update(+id, updateVehicleDto);
+    try {
+      return this.vehicleService.update(+id, updateVehicleDto);
+    } catch (error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    }
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.vehicleService.remove(+id);
+    try {
+      return this.vehicleService.remove(+id);
+    } catch (error) {
+      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      
+    }
   }
 }

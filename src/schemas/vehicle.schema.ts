@@ -1,13 +1,18 @@
 /* eslint-disable prettier/prettier */
-import { StateVehicleType } from './../types/TypeStateVehicle';
-import { VehicleType } from './../types/TypeVehicle';
+import { StateVehicleType } from '../types/StateVehicleType';
+import { VehicleType } from '../types/VehicleType';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
 export type VehicleDocument = Vehicle & Document;
 
 @Schema()
 export class Vehicle {
+  _id : mongoose.Types.ObjectId;
+
+  @Prop()
+  type_vehicle: VehicleType;
+
   @Prop()
   brand: string;
 
@@ -15,19 +20,17 @@ export class Vehicle {
   model: string;
 
   @Prop()
+  state: StateVehicleType;
+
+  @Prop()
   immatriculation: string;
 
   @Prop()
   price: string;
-
-  @Prop()
-  avalaible: boolean;
   
-  @Prop()
-  denomination: VehicleType;
 
-  @Prop()
-  state: StateVehicleType;
+
+ 
 
 
 }

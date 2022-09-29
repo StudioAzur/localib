@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
-import { Vehicle } from './entities/vehicle.entity';
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateVehicleDto } from './dto/create-vehicle.dto';
 import { UpdateVehicleDto } from './dto/update-vehicle.dto';
 import { Model } from 'mongoose';
+import { Vehicle } from 'src/schemas/vehicle.schema';
 
 @Injectable()
 export class VehicleService {
