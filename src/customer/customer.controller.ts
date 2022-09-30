@@ -25,7 +25,7 @@ export class CustomerController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     try {
-      return this.customerService.findOne(+id);
+      return this.customerService.findOne(id);
       
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -35,7 +35,7 @@ export class CustomerController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
     try {
-      return this.customerService.update(+id, updateCustomerDto);
+      return this.customerService.update(id, updateCustomerDto);
       
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -45,7 +45,7 @@ export class CustomerController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     try {
-      return this.customerService.remove(+id);
+      return this.customerService.remove(id);
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }

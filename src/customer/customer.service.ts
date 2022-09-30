@@ -12,24 +12,25 @@ export class CustomerService {
   constructor(@Inject('CUSTOMER_MODEL')
     private customerModel: Model<Customer>,
   ){}
-    create(createCustomerDto: CreateCustomerDto):Promise<Customer>{
+    async create(createCustomerDto: CreateCustomerDto):Promise<Customer>{
       const createdCustomer = new this.customerModel(createCustomerDto);
-      return createdCustomer.save();
+      await createdCustomer.save();
+      return createdCustomer;
     }
 
   findAll():Promise<Customer[]> {
     return this.customerModel.find().exec();
   }
 
-  findOne(id: number) {
+  findOne(id: string) : Promise<Customer>{
       return this.customerModel.findById(id).exec();
   }
 
-  update(id: number, updateCustomerDto: UpdateCustomerDto) {
+  update(id: string, updateCustomerDto: UpdateCustomerDto) {
     return this.customerModel.findByIdAndUpdate(id, updateCustomerDto).exec();
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.customerModel.findByIdAndRemove(id);
   }
 }

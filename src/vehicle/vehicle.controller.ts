@@ -27,9 +27,9 @@ export class VehicleController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id:  string) {
     try {
-      return this.vehicleService.findOne(+id);
+      return this.vehicleService.findOne(id);
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }

@@ -1,3 +1,4 @@
+import { Customer } from 'src/schemas/customer.schema';
 /* eslint-disable prettier/prettier */
 import { VehicleService } from './../vehicle/vehicle.service';
 import { Inject, Injectable } from '@nestjs/common';
@@ -13,26 +14,23 @@ export class LocationService {
     private readonly customerService: CustomerService, 
     private readonly vehicleService: VehicleService
   ){}
-  create(createLocationDto: CreateLocationDto, idCustomer, idVehicle): Promise<Location> {
-    const customer = this.customerService.findOne(idCustomer);
-    const vehicle = this.vehicleService.findOne(idVehicle);
-    const newLocation = {vehicle: vehicle, customer: customer, duration: 3};
-    return this.locationModel.create(newLocation);
+  async create(createLocationDto: CreateLocationDto): Promise<Location> {
+    return this.locationModel.create(createLocationDto);
   }
 
   findAll() {
     return this.locationModel.find().exec();
   }
 
-  findOne(id: number) {
-    return this.locationModel.findById(id).exec();
+  findOne(id: string) {
+    return this.locationModel.findById(id).populate(['customer', 'vehicle']);
   }
 
-  update(id: number, updateLocationDto: UpdateLocationDto) {
+  update(id: string, updateLocationDto: UpdateLocationDto) {
     return this.locationModel.findByIdAndUpdate(id, updateLocationDto).exec();
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return this.locationModel.findByIdAndRemove(id);
   }
 }

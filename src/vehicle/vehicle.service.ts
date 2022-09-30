@@ -19,8 +19,8 @@ export class VehicleService {
     return this.vehicleModel.find().exec();
   }
 
-  findOne(id: number) {
-    return this.vehicleModel.findById(id).exec();
+  findOne(id: string) {
+    return this.vehicleModel.findById(id);
   }
 
   update(id: number, updateVehicleDto: UpdateVehicleDto) {

@@ -4,14 +4,14 @@ import { LocationService } from './location.service';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateLocationDto } from './dto/update-location.dto';
 
-@Controller('location')
+@Controller('locations')
 export class LocationController {
   constructor(private readonly locationService: LocationService) {}
 
   @Post()
-  create(@Body() createLocationDto: CreateLocationDto, idCustomer, idVehicle) {
+  create(@Body() createLocationDto: CreateLocationDto) {
     try {
-      return this.locationService.create(createLocationDto, idCustomer, idVehicle);
+      return this.locationService.create(createLocationDto);
       
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -30,7 +30,7 @@ export class LocationController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     try {
-      return this.locationService.findOne(+id);
+      return this.locationService.findOne(id);
       
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
@@ -40,7 +40,7 @@ export class LocationController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateLocationDto: UpdateLocationDto) {
     try {
-      return this.locationService.update(+id, updateLocationDto);
+      return this.locationService.update(id, updateLocationDto);
       
     } catch (error) {
       
@@ -51,7 +51,7 @@ export class LocationController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     try {
-      return this.locationService.remove(+id);
+      return this.locationService.remove(id);
       
     } catch (error) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);

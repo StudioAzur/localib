@@ -27,12 +27,6 @@ export class Vehicle {
 
   @Prop()
   price: string;
-  
-
-
- 
-
-
 }
 
 export const VehicleSchema = SchemaFactory.createForClass(Vehicle);

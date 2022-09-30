@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+import mongoose from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
@@ -6,8 +7,7 @@ export type CustomerDocument = Customer & Document;
 
 @Schema()
 export class Customer {
-  @Prop()
-  _id : string;
+  _id : mongoose.Types.ObjectId;
 
   @Prop()
   name: string;
